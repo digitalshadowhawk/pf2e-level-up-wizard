@@ -159,11 +159,17 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       game.settings.get(game.system.id, 'mythic') === 'enabled';
     const ABPEnabled =
       game.settings.get(game.system.id, 'automaticBonusVariant') !== 'noABP';
-    const ancestryParagon =
+    const ancestryParagonXDY =
       game.modules.get('xdy-pf2e-workbench')?.active &&
       game.settings.get(
         'xdy-pf2e-workbench',
         'legacyVariantRuleAncestryParagon'
+      );
+    const ancestryParagonHawk =   
+      game.modules.get('pf2e-sf2e-extra-feat-slots')?.active &&
+      game.settings.get(
+        'pf2e-sf2e-extra-feat-slots',
+        'ancestryParagon'
       );
     const showFeatPrerequisites = game.settings.get(
       module_name,
@@ -219,7 +225,7 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       freeArchetype &&
       (await getFeatsForLevel(this.actorData, 'archetype', targetLevel));
     const ancestryParagonFeats =
-      ancestryParagon &&
+      (ancestryParagonXDY || ancestryParagonHawk) &&
       (await getFeatsForLevel(this.actorData, 'ancestryParagon', targetLevel));
     const {
       hasSkillPotencyUpgrade,
@@ -331,7 +337,8 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       skillFeats: finalData.skillFeats,
       generalFeats: finalData.generalFeats,
       freeArchetypeFeats: finalData.freeArchetypeFeats,
-      ancestryParagonFeats: finalData.ancestryParagonFeats,
+      ancestryParagonFeatsXDY: finalData.ancestryParagonFeats,
+      ancestryParagonFeatsHawk: finalData.ancestryParagonFeats,
       mythicFeats: finalData.mythicFeats
     });
 
@@ -353,7 +360,8 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       skillFeats: 'skill',
       generalFeats: 'general',
       freeArchetypeFeats: 'archetype',
-      ancestryParagonFeats: 'xdy_ancestryparagon',
+      ancestryParagonFeatsXDY: 'xdy_ancestryparagon',
+      ancestryParagonFeatsHawk: 'ancestryParagon',
       mythicFeats: 'mythic'
     };
 
