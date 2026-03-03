@@ -154,11 +154,11 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       ? currentLevel
       : currentLevel + 1;
 
-    const freeArchetype = game.settings.get('pf2e', 'freeArchetypeVariant');
+    const freeArchetype = game.settings.get(game.system.id, 'freeArchetypeVariant');
     const mythicVariantEnabled =
-      game.settings.get('pf2e', 'mythic') === 'enabled';
+      game.settings.get(game.system.id, 'mythic') === 'enabled';
     const ABPEnabled =
-      game.settings.get('pf2e', 'automaticBonusVariant') !== 'noABP';
+      game.settings.get(game.system.id, 'automaticBonusVariant') !== 'noABP';
     const ancestryParagon =
       game.modules.get('xdy-pf2e-workbench')?.active &&
       game.settings.get(
@@ -231,7 +231,7 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       ABPEnabled &&
       getSkillPotencyForLevel(this.actorData, targetLevel, ABPEnabled);
 
-    const gradualBoosts = game.settings.get('pf2e', 'gradualBoostsVariant');
+    const gradualBoosts = game.settings.get(game.system.id, 'gradualBoostsVariant');
 
     const {
       featuresForLevel,
