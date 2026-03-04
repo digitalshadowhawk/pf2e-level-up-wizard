@@ -167,10 +167,7 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       );
     const ancestryParagonHawk =   
       game.modules.get('pf2e-sf2e-extra-feat-slots')?.active &&
-      game.settings.get(
-        'pf2e-sf2e-extra-feat-slots',
-        'ancestryParagon'
-      );
+      game.settings.get(game.system.id, "campaignFeatSections").find((section) => section.id === "pf2e-sf2e-extra-feat-slots-ancestry-paragon");
     const showFeatPrerequisites = game.settings.get(
       module_name,
       'show-feat-prerequisites'
@@ -361,7 +358,7 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       generalFeats: 'general',
       freeArchetypeFeats: 'archetype',
       ancestryParagonFeatsXDY: 'xdy_ancestryparagon',
-      ancestryParagonFeatsHawk: 'ancestryParagon',
+      ancestryParagonFeatsHawk: 'pf2e-sf2e-extra-feat-slots-ancestry-paragon',
       mythicFeats: 'mythic'
     };
 
