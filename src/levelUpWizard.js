@@ -159,15 +159,18 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       game.settings.get(game.system.id, 'mythic') === 'enabled';
     const ABPEnabled =
       game.settings.get(game.system.id, 'automaticBonusVariant') !== 'noABP';
-    const ancestryParagonXDY =
+    const ancestryParagon =
       game.modules.get('xdy-pf2e-workbench')?.active &&
       game.settings.get(
         'xdy-pf2e-workbench',
         'legacyVariantRuleAncestryParagon'
       );
-    const ancestryParagonHawk =   
-      game.modules.get('pf2e-sf2e-extra-feat-slots')?.active &&
-      game.settings.get(game.system.id, "campaignFeatSections").find((section) => section.id === "pf2e-sf2e-extra-feat-slots-ancestry-paragon");
+
+
+
+
+
+
     const showFeatPrerequisites = game.settings.get(
       module_name,
       'show-feat-prerequisites'
@@ -222,7 +225,7 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       freeArchetype &&
       (await getFeatsForLevel(this.actorData, 'archetype', targetLevel));
     const ancestryParagonFeats =
-      (ancestryParagonXDY || ancestryParagonHawk) &&
+      ancestryParagon &&
       (await getFeatsForLevel(this.actorData, 'ancestryParagon', targetLevel));
     const {
       hasSkillPotencyUpgrade,
@@ -334,8 +337,8 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       skillFeats: finalData.skillFeats,
       generalFeats: finalData.generalFeats,
       freeArchetypeFeats: finalData.freeArchetypeFeats,
-      ancestryParagonFeatsXDY: finalData.ancestryParagonFeats,
-      ancestryParagonFeatsHawk: finalData.ancestryParagonFeats,
+      ancestryParagonFeats: finalData.ancestryParagonFeats,
+
       mythicFeats: finalData.mythicFeats
     });
 
@@ -357,8 +360,8 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       skillFeats: 'skill',
       generalFeats: 'general',
       freeArchetypeFeats: 'archetype',
-      ancestryParagonFeatsXDY: 'xdy_ancestryparagon',
-      ancestryParagonFeatsHawk: 'pf2e-sf2e-extra-feat-slots-ancestry-paragon',
+      ancestryParagonFeats: 'xdy_ancestryparagon',
+
       mythicFeats: 'mythic'
     };
 
